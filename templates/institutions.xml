@@ -3,18 +3,18 @@
   <institutions>
     <institution name="SCCON">
       <address>
-        <deliveryPoint>aaa</deliveryPoint>
+        <deliveryPoint>Endereço da SCCON</deliveryPoint>
         <city>São Paulo</city>
-        <administrativeArea>bbb</administrativeArea>
-        <postalCode>1234</postalCode>
+        <administrativeArea>Bairro</administrativeArea>
+        <postalCode>CEP</postalCode>
         <country>Brasil</country>
       </address>
       <phone>111</phone>
       <fax>222</fax>
       <email>aaa@bbb.ccc</email>
-      <person>Teste</person>
+      <person>Nome do Resp</person>
       <title>Sr</title>
-      <position>Chefe</position>
+      <position>Posição na Empresa</position>
       <hours></hours>
     </institution>
   </institutions>
