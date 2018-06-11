@@ -44,7 +44,7 @@ currentPath = os.path.abspath(os.path.dirname(__file__))
 
 class DataTypeEditorDialog(QDialog, FORM_CLASS):
   def __init__(self,parent=None):
-    super(WorkflowEditorDialog, self).__init__(parent)
+    super(DataTypeEditorDialog, self).__init__(parent)
     self.setupUi(self)
 
     self.datatypeTemplateManager = DatatypeTemplateManager(currentPath)

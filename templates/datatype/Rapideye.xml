@@ -1,0 +1,7 @@
+<DatatypeTemplate>
+ <Name>Rapideye</Name>
+ <Type>image</Type>
+ <Accuracy>5m</Accuracy>
+ <Scale></Scale>
+ <ThematicAccuracy></ThematicAccuracy>
+</DatatypeTemplate>

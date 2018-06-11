@@ -252,7 +252,7 @@ class ApplyTemplatesDialog(QDialog, FORM_CLASS):
 
     # get profile from settings
     settings = QSettings("NextGIS", "metatools")
-    profile = settings.value("general/defaultProfile", "")
+    profile = "xml_iso19115.xml"
     if profile == "":
       QMessageBox.warning(self,
                           self.tr("No profile"),
@@ -313,7 +313,7 @@ class ApplyTemplatesDialog(QDialog, FORM_CLASS):
 
         # save metadata file (hmm.. why not QFile?)
         metafile = codecs.open(metaFilePath, "w", encoding="utf-8")
-        metafile.write(unicode(metaXML, "utf-8"))
+        metafile.write(metaXML.toString())
         metafile.close()
 
       QMessageBox.information(self,

@@ -1,0 +1,21 @@
+<!DOCTYPE metatools_institution>
+<metatools_institution>
+  <institutions>
+    <institution name="SCCON">
+      <address>
+        <deliveryPoint>aaa</deliveryPoint>
+        <city>São Paulo</city>
+        <administrativeArea>bbb</administrativeArea>
+        <postalCode>1234</postalCode>
+        <country>Brasil</country>
+      </address>
+      <phone>111</phone>
+      <fax>222</fax>
+      <email>aaa@bbb.ccc</email>
+      <person>Teste</person>
+      <title>Sr</title>
+      <position>Chefe</position>
+      <hours></hours>
+    </institution>
+  </institutions>
+</metatools_institution>

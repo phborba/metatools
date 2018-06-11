@@ -42,6 +42,12 @@ import resources
 minQtVersion = '4.6.0'
 currentPath = os.path.abspath(os.path.dirname(__file__))
 
+try:
+    import ptvsd
+    ptvsd.enable_attach(secret='my_secret', address = ('localhost', 5671))
+except:
+    pass
+
 class MetatoolsPlugin:
   def __init__(self, iface):
     self.iface = iface
