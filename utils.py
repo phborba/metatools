@@ -102,7 +102,7 @@ def getRasterLayerByPath(layerPath):
 
 # helper functions for raster metadata
 
-def getGeneralRasterInfo(path):
+def getGeneralRasterInfo(path, returnEpsg = False):
   raster = gdal.Open(unicode(path).encode("utf8"))
   bands = raster.RasterCount
 
@@ -133,9 +133,12 @@ def getGeneralRasterInfo(path):
     yMax = coord[1][1]
     transform = None
 
-  raster = None
-
-  return bands, [xMin, yMin, xMax, yMax]
+  if not returnEpsg:
+    raster = None
+    return bands, [xMin, yMin, xMax, yMax]
+  else:
+    proj = osr.SpatialReference(wkt=raster.GetProjection())
+    return bands, [xMin, yMin, xMax, yMax], proj.ExportToWkt()
 
 def getBandInfo(path, bandNumber):
   raster = gdal.Open(unicode(path).encode("utf8"))
@@ -252,7 +255,7 @@ def writeRasterInfo(dataFile, metadataFile):
   f.close()
 
   # general raster info
-  bands, extent = getGeneralRasterInfo(dataFile)
+  bands, extent, infoTxt = getGeneralRasterInfo(dataFile, returnEpsg = True)
 
   root = metaXML.documentElement()
 
@@ -313,11 +316,23 @@ def writeRasterInfo(dataFile, metadataFile):
     textNode = getOrCreateTextChild(mdGcoInt)
     textNode.setNodeValue(str(dt))
 
+  writeSpatialInfo(root, infoTxt)
+
   f = QFile(metadataFile)
   f.open(QFile.WriteOnly)
   stream = QTextStream(f)
   metaXML.save(stream, 2)
   f.close()
+
+def writeSpatialInfo(root, infoTxt):
+  referenceSystemInfo = getOrCreateChild(root, "referenceSystemInfo")
+  mdReferenceSystem = getOrCreateChild(referenceSystemInfo, "MD_ReferenceSystem")
+  referenceSystemIdentifier = getOrCreateChild(mdReferenceSystem, "referenceSystemIdentifier")
+  rsIdentifier = getOrCreateChild(referenceSystemIdentifier, "RS_Identifier")
+  code = getOrCreateChild(rsIdentifier, "code")
+  mdCharStringElement = getOrCreateChild(code, "gco:CharacterString")
+  textNode = getOrCreateTextChild(mdCharStringElement)
+  textNode.setNodeValue(infoTxt)
 
 # write raster information in metadata
 def writeVectorInfo(dataFile, metadataFile):
