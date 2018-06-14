@@ -1,7 +1,7 @@
 <DatatypeTemplate>
- <Name>Rapideye</Name>
+ <Name>Raster</Name>
  <Type>image</Type>
- <Accuracy>5m</Accuracy>
+ <Accuracy></Accuracy>
  <Scale></Scale>
  <ThematicAccuracy></ThematicAccuracy>
 </DatatypeTemplate>

@@ -162,7 +162,7 @@ def getBandInfo(path, bandNumber):
   return min_value, max_value, dataType
 
 # helper functions for vector metadata
-def getGeneralVectorInfo(path):
+def getGeneralVectorInfo(path, returnEpsg = False):
   ogrDataSource = ogr.Open(unicode(path).encode("utf8"))
   layer = ogrDataSource[0]
 
@@ -186,8 +186,10 @@ def getGeneralVectorInfo(path):
 
   layer = None
   ogrDataSource = None
-
-  return [xMin, yMin, xMax, yMax]
+  if not returnEpsg:
+    return [xMin, yMin, xMax, yMax]
+  else:
+    return [xMin, yMin, xMax, yMax], str(layerSR)
 
 # helper functions for XML processing
 def createChild(element, childName):
@@ -343,7 +345,7 @@ def writeVectorInfo(dataFile, metadataFile):
   f.close()
 
   # general raster info
-  extent = getGeneralVectorInfo(dataFile)
+  extent, infoTxt = getGeneralVectorInfo(dataFile, returnEpsg = True)
 
   root = metaXML.documentElement()
 
@@ -375,6 +377,8 @@ def writeVectorInfo(dataFile, metadataFile):
   textNode = getOrCreateTextChild(mdCharStringElement)
   textNode.setNodeValue(str(extent[3]))
 
+  writeSpatialInfo(root, infoTxt)
+  
   f = QFile(metadataFile)
   f.open(QFile.WriteOnly)
   stream = QTextStream(f)
